@@ -2,10 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
-
+from docgen import router as doc_router
+app.include_router(doc_router)
 app = FastAPI()
 
-# Ye line frontend ko backend se baat karne dega
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
