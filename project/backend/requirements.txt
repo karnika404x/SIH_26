@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-requests
-python-docx
-pytesseract
-python-multipart
