@@ -2,10 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
-from docgen import router as doc_router
-app.include_router(doc_router)
-app = FastAPI()
 
+app = FastAPI(title="Sovereign AI Workbench Backend")
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,33 +12,60 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class ChatRequest(BaseModel):
     message: str
 
+
 def route_task(message: str) -> str:
-    code_words = ["code", "function", "debug", "sql", "query", "script"]
-    if any(word in message.lower() for word in code_words):
+    code_words = ["code", "function", "debug", "sql", "query", "script", "bug", "python", "error"]
+    lowered = message.lower()
+    if any(word in lowered for word in code_words):
         return "CodeModel-7B"
     return "ReasoningModel-14B"
 
+
 @app.post("/chat")
 def chat(req: ChatRequest):
-    model = route_task(req.message)
+    model_label = route_task(req.message)
 
-    response = requests.post("http://localhost:11434/api/generate", json={
-        "model": "llama3.2",
-        "prompt": req.message,
-        "stream": False
-    })
-
-    answer = response.json().get("response", "")
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": "llama3.2",
+                "prompt": req.message,
+                "stream": False,
+            },
+            timeout=60,
+        )
+        answer = response.json().get("response", "(No response from model)")
+    except Exception as e:
+        answer = f"[Local AI not reachable. Make sure 'ollama serve' is running. Error: {e}]"
 
     return {
         "response": answer,
-        "routed_model": model,
-        "external_calls": 0
+        "routed_model": model_label,
+        "external_calls": 0,
     }
+
 
 @app.get("/logs")
 def logs():
-    return {"external_calls": 0, "status": "isolated"}
+    return {
+        "external_calls": 0,
+        "status": "isolated",
+        "message": "No traffic has left the local network.",
+    }
+
+
+@app.get("/")
+def root():
+    return {"status": "Sovereign AI Workbench backend is running."}
+
+
+try:
+    from docgen import router as doc_router
+    app.include_router(doc_router)
+except ImportError:
+    pass
