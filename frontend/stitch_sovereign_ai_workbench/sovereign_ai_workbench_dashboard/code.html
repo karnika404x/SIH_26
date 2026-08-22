@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sovereign AI Workbench - Main Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#0d1c2e",
+                        "on-tertiary-fixed": "#001e2b",
+                        "tertiary": "#7bd1fa",
+                        "on-background": "#dae2fd",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#b9c7df",
+                        "background": "#0b1326",
+                        "on-primary-container": "#798098",
+                        "status-warning": "#f59e0b",
+                        "status-success": "#22c55e",
+                        "secondary-container": "#3c4a5e",
+                        "surface-container-highest": "#2d3449",
+                        "on-tertiary-fixed-variant": "#004d66",
+                        "error-container": "#93000a",
+                        "surface-elevated": "#1e293b",
+                        "on-tertiary-container": "#288ab0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "status-error": "#ef4444",
+                        "primary-container": "#0f172a",
+                        "border-muted": "#1e293b",
+                        "surface-tint": "#bec6e0",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#171f33",
+                        "surface-container-low": "#131b2e",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "surface-bright": "#31394d",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#222a3d",
+                        "on-primary": "#283044",
+                        "primary-fixed": "#dae2fd",
+                        "primary": "#bec6e0",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-container": "#abb9d1",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-secondary": "#233144",
+                        "inverse-primary": "#565e74",
+                        "tertiary-fixed-dim": "#7bd1fa",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#c6c6cd",
+                        "tertiary-fixed": "#c0e8ff",
+                        "tertiary-container": "#001a25",
+                        "surface": "#0b1326",
+                        "outline-variant": "#45464d",
+                        "surface-container-lowest": "#060e20",
+                        "inverse-surface": "#dae2fd",
+                        "inverse-on-surface": "#283044",
+                        "surface-dim": "#0b1326",
+                        "on-surface": "#dae2fd",
+                        "on-tertiary": "#003547",
+                        "outline": "#909097"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "mono-label": ["monospace"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "mono-label": ["13px", { "lineHeight": "1", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b1326; color: #dae2fd; }
+        .grid-bg {
+            background-image: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden selection:bg-tertiary selection:text-on-tertiary">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 border-b border-outline-variant bg-background bg-opacity-95 backdrop-blur-sm transition-colors duration-200 ease-in-out">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">Sovereign AI Workbench</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-status-success" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-md text-label-md text-status-success uppercase tracking-wider">Secure Connection</span>
+</div>
+<div class="flex items-center gap-4 text-tertiary">
+<button class="hover:bg-surface-container hover:text-on-surface p-2 rounded-full transition-colors duration-200 ease-in-out">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container hover:text-on-surface p-2 rounded-full transition-colors duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16 h-full w-full max-w-container-max mx-auto overflow-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col py-4 px-2 border-r border-outline-variant bg-surface-container-low w-20 hover:w-64 transition-all duration-300 ease-in-out group">
+<div class="flex items-center px-4 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap overflow-hidden">
+<img class="w-8 h-8 rounded bg-surface-elevated object-cover flex-shrink-0" data-alt="A hyper-minimalist geometric logo for a cybersecurity firm, resembling a stylized interlocking shield or abstract cube in neon cyan over deep navy. Solid corporate aesthetic, no text." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk3VOEUzJkWGuXlycKW_ubVAt8KSP-WozcE8vo8dtTdAkyCaZ1pJJRBe8e_4Owd0pvOyYq5lFD1gBqq_qf4ilPC69-se3bpqQg3W4nIK6fEbeYqtwSMHhDVs6Y_06pj-YspAKXRAmjCxju3urM2rxCW-O2tqh-fMk8S_TH9LCOaY2UR_JR8Q63lHzW4GTun3ASQcTmUC73eyZi3VA8OiZ2ab_6h-VxZfHf7D66tbyl4Y1msk3tAgSP"/>
+<div class="ml-3">
+<div class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Sovereign</div>
+<div class="font-mono-label text-mono-label text-on-surface-variant">Ops Console</div>
+</div>
+</div>
+<div class="px-2 mb-6">
+<button class="w-full flex justify-center group-hover:justify-start items-center gap-3 bg-tertiary text-on-tertiary hover:brightness-110 py-2.5 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 shadow-[0_0_10px_rgba(123,209,250,0.15)] overflow-hidden whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto">New Session</span>
+</button>
+</div>
+<div class="flex flex-col gap-2 flex-1 px-2">
+<!-- Chat (Active) -->
+<a class="flex items-center gap-4 px-3 py-3 bg-secondary-container text-on-secondary-container rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Chat</span>
+</a>
+<!-- Documents -->
+<a class="flex items-center gap-4 px-3 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined flex-shrink-0">description</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Documents</span>
+</a>
+<!-- Knowledge Base -->
+<a class="flex items-center gap-4 px-3 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined flex-shrink-0">database</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Knowledge Base</span>
+</a>
+<!-- Network Monitor -->
+<a class="flex items-center gap-4 px-3 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined flex-shrink-0">analytics</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Network Monitor</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-4 px-3 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined flex-shrink-0">settings</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Settings</span>
+</a>
+</div>
+<div class="mt-auto px-2 flex flex-col gap-2 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-4 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined text-[18px] flex-shrink-0">help</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Support</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg group/item transition-colors duration-200 overflow-hidden whitespace-nowrap" href="#">
+<span class="material-symbols-outlined text-[18px] flex-shrink-0">terminal</span>
+<span class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">Logs</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-20 flex bg-background grid-bg overflow-hidden relative">
+<!-- Central Panel (Chat & Working Area) -->
+<div class="flex-1 flex flex-col h-full border-r border-outline-variant bg-surface bg-opacity-90 backdrop-blur-sm">
+<!-- Chat History Area -->
+<div class="flex-1 overflow-y-auto p-gutter flex flex-col gap-6 custom-scrollbar">
+<!-- User Message -->
+<div class="flex justify-end w-full">
+<div class="max-w-[70%] bg-surface-elevated border border-outline-variant rounded-xl rounded-tr-none p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)]">
+<p class="font-body-md text-body-md text-on-surface">Please analyze the internal audit document and generate a final compliance report. Ensure strict adherence to our isolated data protocols.</p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex justify-start w-full">
+<div class="max-w-[80%] flex flex-col gap-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="px-2 py-0.5 bg-surface-container-high border border-outline-variant rounded text-[10px] font-mono-label text-tertiary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                                    Routed to: ReasoningModel-14B
+                                </div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-xl rounded-tl-none p-4 text-on-surface font-body-md text-body-md leading-relaxed">
+<p class="mb-4">I have received the request. I will initiate the analysis of the provided audit document within the secure enclave. I am spinning up the code model for data extraction.</p>
+<!-- File Upload / Working Zone inside Chat -->
+<div class="mt-4 border border-dashed border-outline-variant rounded-lg bg-surface-container-low p-6 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-tertiary opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300 pointer-events-none"></div>
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant mb-2">upload_file</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">Drag and drop files here to append to context</p>
+<p class="font-mono-label text-mono-label text-outline mt-1 text-xs">Supported: .pdf, .docx, .csv (Max 50MB)</p>
+<!-- Uploaded File Preview -->
+<div class="mt-4 w-full max-w-xs flex items-center gap-3 bg-surface-elevated border border-outline-variant p-2 rounded-md shadow-sm">
+<div class="w-10 h-10 bg-error-container bg-opacity-20 rounded flex items-center justify-center text-error">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="font-label-md text-label-md text-on-surface truncate">Internal_Audit.pdf</div>
+<div class="font-mono-label text-mono-label text-on-surface-variant text-[10px]">2.4 MB • Scanned</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Response 2 (Code Model) -->
+<div class="flex justify-start w-full">
+<div class="max-w-[80%] flex flex-col gap-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<div class="px-2 py-0.5 bg-surface-container-high border border-outline-variant rounded text-[10px] font-mono-label text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Routed to: CodeModel-7B
+                                </div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-xl rounded-tl-none p-4 text-on-surface font-body-md text-body-md">
+<p class="mb-4">Data extraction complete. Analysis finished. The final report has been generated and is ready for local download.</p>
+<!-- Document Generation Card -->
+<div class="bg-surface-elevated border border-outline-variant rounded-lg p-4 flex items-center justify-between shadow-[0_4px_6px_-1px_rgba(0,0,0,0.5)] group hover:border-tertiary transition-colors duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container rounded flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div>
+<div class="font-headline-md text-[16px] font-semibold text-on-surface">Final_Report.docx</div>
+<div class="font-mono-label text-mono-label text-status-success mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                Sanitized &amp; Verified
+                                            </div>
+</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-transparent border border-secondary text-secondary rounded hover:bg-secondary hover:text-on-secondary transition-all duration-200 font-label-md text-label-md uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                        Download
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-gutter border-t border-outline-variant bg-surface-elevated relative z-10">
+<div class="relative flex items-end bg-background border border-outline-variant rounded-xl focus-within:border-tertiary focus-within:shadow-[0_0_0_2px_rgba(123,209,250,0.1)] transition-all duration-200">
+<button class="p-3 text-on-surface-variant hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none text-on-surface font-body-md text-body-md focus:ring-0 py-3 px-2 resize-none max-h-32 min-h-[48px] custom-scrollbar placeholder-on-surface-variant" placeholder="Message Sovereign AI..." rows="1"></textarea>
+<button class="p-3 text-tertiary hover:brightness-125 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-2">
+<span class="font-mono-label text-mono-label text-[10px] text-outline">Internal Network ONLY. No external telemetry.</span>
+</div>
+</div>
+<!-- Collapsible Bottom Panel: Agent Task Trace -->
+<div class="border-t border-outline-variant bg-surface-container-low max-h-[30vh] flex flex-col group">
+<div class="flex items-center justify-between px-4 py-2 bg-surface-container cursor-pointer hover:bg-surface-elevated transition-colors border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">memory</span>
+<span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Agent Task Trace</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">expand_more</span>
+</div>
+<div class="p-4 overflow-y-auto custom-scrollbar font-mono-label text-mono-label flex flex-col gap-3">
+<div class="flex items-start gap-3 text-status-success">
+<span class="material-symbols-outlined text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="text-on-surface font-semibold">Step 1:</span> Analyzing data parameters and schema.
+                                <div class="text-[10px] text-on-surface-variant mt-0.5">Duration: 0.4s | Model: Reasoning-14B</div>
+</div>
+</div>
+<div class="flex items-start gap-3 text-status-success">
+<span class="material-symbols-outlined text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="text-on-surface font-semibold">Step 2:</span> Generating executive summary and detailed findings.
+                                <div class="text-[10px] text-on-surface-variant mt-0.5">Duration: 2.1s | Model: Code-7B</div>
+</div>
+</div>
+<div class="flex items-start gap-3 text-tertiary">
+<span class="material-symbols-outlined text-[16px] mt-0.5 animate-spin">progress_activity</span>
+<div>
+<span class="text-on-surface font-semibold">Step 3:</span> Verifying security protocols and redacting sensitive PII.
+                                <div class="text-[10px] text-on-surface-variant mt-0.5">Processing...</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Panel: Zero-Egress Monitor -->
+<aside class="w-80 flex-shrink-0 bg-surface-elevated border-l border-outline-variant flex flex-col h-full shadow-[-4px_0_15px_rgba(0,0,0,0.2)] relative z-20">
+<div class="p-6 border-b border-outline-variant bg-surface-container-highest flex items-center justify-between">
+<h2 class="font-headline-md text-[18px] text-on-surface tracking-wide flex items-center gap-2">
+<span class="material-symbols-outlined text-status-success">shield_lock</span>
+                        Zero-Egress Monitor
+                    </h2>
+</div>
+<div class="p-6 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+<!-- Status Pill -->
+<div class="bg-surface-container border border-status-success border-opacity-30 rounded-lg p-5 flex flex-col items-center justify-center gap-2 shadow-[0_0_15px_rgba(34,197,94,0.05)] inset-0 relative overflow-hidden">
+<div class="absolute inset-0 bg-status-success opacity-5"></div>
+<div class="w-12 h-12 rounded-full bg-status-success bg-opacity-10 flex items-center justify-center relative">
+<div class="absolute inset-0 rounded-full border border-status-success animate-ping opacity-20"></div>
+<span class="material-symbols-outlined text-status-success text-[28px]" style="font-variation-settings: 'FILL' 1;">public_off</span>
+</div>
+<div class="font-display-lg text-[32px] text-on-surface mt-2">0</div>
+<div class="font-label-md text-label-md text-status-success uppercase tracking-wider">External Calls</div>
+<div class="font-mono-label text-[10px] text-on-surface-variant text-center mt-2 border-t border-outline-variant pt-2 w-full">System Isolated. Airgap Integrity: 100%</div>
+</div>
+<!-- Network Traffic Graph Area -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Internal Traffic (Local)</h3>
+<span class="font-mono-label text-[11px] text-tertiary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Live
+                            </span>
+</div>
+<div class="h-32 bg-surface-container border border-outline-variant rounded-lg p-3 relative overflow-hidden flex items-end">
+<!-- Faux Graph Grid -->
+<div class="absolute inset-0 border-b border-l border-outline-variant opacity-30 flex flex-col justify-between p-2">
+<div class="w-full border-b border-outline-variant border-dashed opacity-20"></div>
+<div class="w-full border-b border-outline-variant border-dashed opacity-20"></div>
+</div>
+<!-- Stylized Line Graph (CSS generated for tech look) -->
+<div class="relative w-full h-full flex items-end gap-1 px-1 z-10 opacity-70">
+<div class="w-1/12 bg-secondary h-[20%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[40%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[30%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-tertiary h-[70%] rounded-t-sm transition-all duration-500 shadow-[0_0_8px_rgba(123,209,250,0.5)]"></div>
+<div class="w-1/12 bg-secondary h-[50%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[20%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[10%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[15%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[25%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-secondary h-[30%] rounded-t-sm transition-all duration-500"></div>
+<div class="w-1/12 bg-tertiary h-[85%] rounded-t-sm transition-all duration-500 shadow-[0_0_8px_rgba(123,209,250,0.5)]"></div>
+<div class="w-1/12 bg-secondary h-[40%] rounded-t-sm transition-all duration-500"></div>
+</div>
+</div>
+</div>
+<!-- System Info Blocks -->
+<div class="space-y-3 mt-4">
+<div class="flex justify-between items-center p-3 bg-surface-container rounded border border-outline-variant">
+<span class="font-mono-label text-on-surface-variant">Active Models</span>
+<span class="font-mono-label text-on-surface">2 / 4</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container rounded border border-outline-variant">
+<span class="font-mono-label text-on-surface-variant">VRAM Usage</span>
+<span class="font-mono-label text-status-warning">78%</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container rounded border border-outline-variant">
+<span class="font-mono-label text-on-surface-variant">Disk Encryption</span>
+<span class="font-mono-label text-status-success">AES-256</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<!-- Custom Scrollbar CSS embedded for specific containers -->
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #334155;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #475569;
+        }
+    </style>
+</body></html>
