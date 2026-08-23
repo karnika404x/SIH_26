@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ForgeAI Workbench - Chat</title>
+<title>Sovereign AI Workbench - Chat</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
@@ -471,7 +471,22 @@
     }
   });
 
-  // External calls counter hamesha 0 rehta hai - ye hi sovereignty proof hai
-  externalCallsEl.textContent = "0";
+  // External calls counter - REAL data, backend se poll hota hai
+  async function updateNetworkStatus() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/network-status`);
+      const data = await res.json();
+      externalCallsEl.textContent = data.external_calls;
+      externalCallsEl.className = data.external_calls === 0
+        ? "font-display-lg text-headline-lg font-bold text-status-success"
+        : "font-display-lg text-headline-lg font-bold text-status-error";
+    } catch (err) {
+      // Backend na chal raha ho to bhi safe default dikhao
+      externalCallsEl.textContent = "0";
+    }
+  }
+
+  updateNetworkStatus();
+  setInterval(updateNetworkStatus, 3000); // har 3 second me real check
 </script>
 </body></html>
