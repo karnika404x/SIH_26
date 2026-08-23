@@ -1,3 +1,19 @@
+"""
+Sovereign AI Workbench - Real Network Monitor
+================================================
+Ye file batati hai ki backend process ka network connection
+actually kaisa hai - local hai ya kahi bahar ja raha hai.
+
+Ye fake counter nahi hai - ye Python ke 'psutil' library se
+is process (uvicorn) ke real, live network connections check
+karta hai.
+
+Local/internal maana jata hai:
+- 127.0.0.1 (localhost) - Ollama se baat karne ke liye
+- ::1 (IPv6 localhost)
+
+Kuch bhi aur agar dikhe, wo "external" mana jayega.
+"""
 
 import os
 import psutil

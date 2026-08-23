@@ -1,0 +1,11 @@
+This is the local knowledge base for the Sovereign AI Workbench demo.
+Add your organization's manuals, SOPs, and reference documents here as plain text.
+The fact-checker below will only verify claims against THIS file - no internet is used.
+
+Example content (replace with your organization's real data for the demo):
+
+The core financial database schema was last updated in March 2026.
+The log_export endpoint was flagged for missing rate limiting during the Q1 security review.
+Model weights for the reasoning model are loaded from local SSD storage at boot time.
+All document uploads are processed through the local OCR pipeline before indexing.
+The organization's data retention policy requires audit logs to be kept for 180 days.

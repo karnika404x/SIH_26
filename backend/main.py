@@ -129,3 +129,10 @@ try:
     app.include_router(network_router)
 except ImportError:
     pass
+
+# ---- Offline Fact Checker route yahan judta hai ----
+try:
+    from fact_checker import router as fact_checker_router
+    app.include_router(fact_checker_router)
+except ImportError:
+    pass
